@@ -24,10 +24,7 @@ export function deterministicTrimSystemPrompt(
   // specified for phase 4, so we pass the prompt through unchanged while
   // enforcing pinned-line integrity using the resolved, materialized pinned
   // lines for this persona.
-  assertPinnedLines(
-    compiled.systemPrompt,
-    materializePinnedLines(compiled) as unknown as typeof CANONICAL_PINNED_LINES
-  );
+  assertPinnedLines(compiled.systemPrompt, materializePinnedLines(compiled));
 
   return {
     prompt: compiled.systemPrompt,
