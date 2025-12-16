@@ -46,7 +46,7 @@ export default [
 
   // node files
   {
-    files: ["vite.config.ts", "tests/**/*.ts", "tests/**/*.mjs"],
+    files: ["vite.config.ts", "tests/**/*.ts", "tests/**/*.mjs", "src/server/**/*.ts"],
     languageOptions: {
       globals: {
         process: "readonly",
