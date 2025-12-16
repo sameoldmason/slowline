@@ -1,15 +1,16 @@
-import { normalizeNewlines as normalizeNewlinesFromContract } from '../registry/formattingContract';
-
 export function normalizeNewlines(text: string): string {
-  return normalizeNewlinesFromContract(text);
+  // normalize CRLF / CR -> LF
+  return text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 }
 
 export function trimTrailingWhitespace(text: string): string {
-  return normalizeNewlines(text).replace(/[ \t]+$/gm, '').trimEnd();
+  return normalizeNewlines(text)
+    .replace(/[ \t]+$/gm, "")
+    .trimEnd();
 }
 
 export function canonicalizePromptText(text: string): string {
-  return trimTrailingWhitespace(normalizeNewlines(text));
+  return trimTrailingWhitespace(text);
 }
 
 export function stableStringify(value: unknown): string {
@@ -17,18 +18,14 @@ export function stableStringify(value: unknown): string {
 }
 
 function sortValue(value: unknown): unknown {
-  if (Array.isArray(value)) {
-    return value.map(sortValue);
-  }
+  if (Array.isArray(value)) return value.map(sortValue);
 
-  if (value && typeof value === 'object') {
-    const entries = Object.entries(value as Record<string, unknown>).sort(([a], [b]) =>
-      a.localeCompare(b),
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value as Record<string, unknown>).sort(
+      ([a], [b]) => a.localeCompare(b)
     );
     const sorted: Record<string, unknown> = {};
-    entries.forEach(([key, val]) => {
-      sorted[key] = sortValue(val);
-    });
+    for (const [key, val] of entries) sorted[key] = sortValue(val);
     return sorted;
   }
 

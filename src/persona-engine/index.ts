@@ -2,23 +2,21 @@ export * from "./schema/types";
 export * from "./schema/validate";
 export * from "./schema/resolveDefaults";
 export * from "./schema/derive";
+
 export * from "./registry/schemaVersions";
 export * from "./registry/moduleRegistry";
 export * from "./registry/defaultsByVersion";
 export * from "./registry/formattingContract";
 export * from "./registry/registryVersion";
 export * from "./registry/tokenizerModel";
+
 export * from "./compiler/compilePersona";
 export * from "./compiler/renderModules";
 export * from "./compiler/assembleSystemPrompt";
 export * from "./compiler/hash";
 export * from "./compiler/tokenEstimate";
+
 export * from "./utils/assert";
 export * from "./utils/errors";
-
-// Compatibility exports
-export * from "./types";
-export * from "./schema/schema";
-export * from "./registry/module-registry";
-export * from "./defaults/defaults";
+export * from "./utils/normalize";
 export * from "./utils/formatting";
