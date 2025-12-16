@@ -18,6 +18,7 @@ export interface RoutedPlan {
   pressureStyle: string;
   boundaries: string[];
   flaggedBoundaries: string[];
+  allowQuestions: boolean;
 }
 
 export type ResponsePlan = ClarifyIntentPlan | RoutedPlan;
