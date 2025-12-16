@@ -15,4 +15,7 @@ Rules:
 Task:
 Implement engine-impl-phase-3-router, Phase 3 only.
 
+- Phase 3 scope: router modules under `src/persona-engine/router/` (`types.ts`, `errors.ts`, `hash.ts`, `route.ts`) and exports in `src/persona-engine/index.ts`.
+- Keep compiler (phase 2) behavior stable while adding routing logic and hashing.
+
 If anything is unclear, ask before coding.

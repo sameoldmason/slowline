@@ -16,6 +16,11 @@ export * from "./compiler/assembleSystemPrompt";
 export * from "./compiler/hash";
 export * from "./compiler/tokenEstimate";
 
+export * from "./router/types";
+export * from "./router/errors";
+export * from "./router/hash";
+export * from "./router/route";
+
 export * from "./utils/assert";
 export * from "./utils/errors";
 export * from "./utils/normalize";
