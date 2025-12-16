@@ -1,13 +1,13 @@
-import { ModuleId } from '../registry/moduleRegistry';
-import { SchemaVersion } from '../registry/schemaVersions';
+import type { ModuleId } from "../registry/moduleRegistry";
+import type { SchemaVersion } from "../registry/schemaVersions";
 
 export type Intent =
-  | 'plan'
-  | 'learn'
-  | 'write'
-  | 'decide'
-  | 'stuck'
-  | 'vent_reflection';
+  | "plan"
+  | "learn"
+  | "write"
+  | "decide"
+  | "stuck"
+  | "vent_reflection";
 
 export interface PersonaConfig {
   schemaVersion: SchemaVersion;
@@ -30,6 +30,15 @@ export interface PersonaDefaults {
   notes: string[];
 }
 
+export interface ResolvedPersonaConfig extends PersonaConfig {
+  detailLevel?: string;
+  infoStyles: string[];
+  pressureStyle: string;
+  signaturePhrases: string[];
+  boundaries: string[];
+  notes: string[];
+}
+
 export interface DerivedPersonaFields {
   primaryJob: string | null;
   toneDescription?: string;
@@ -43,11 +52,12 @@ export interface CompiledModule {
 
 export interface CompiledPersona {
   schemaVersion: SchemaVersion;
-  config: PersonaConfig;
+  resolvedConfigSnapshot: ResolvedPersonaConfig;
   derived: DerivedPersonaFields;
   compiledAt: string;
   modules: CompiledModule[];
-  canonicalPrompt: string;
+  systemPrompt: string;
   promptHash: string;
   tokenEstimate: number;
+  tokenizerModel: string;
 }
