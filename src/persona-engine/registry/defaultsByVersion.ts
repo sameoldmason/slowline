@@ -1,7 +1,7 @@
-import { PersonaDefaults } from '../schema/types';
-import { SchemaVersion } from './schemaVersions';
+import type { PersonaDefaults } from "../schema/types";
+import type { SchemaVersion } from "./schemaVersions";
 
-export const DEFAULT_PRESSURE_STYLE = 'gentle_nudge';
+export const DEFAULT_PRESSURE_STYLE = "gentle_nudge";
 
 export const DEFAULT_SIGNATURE_PHRASES: string[] = [];
 
@@ -19,7 +19,10 @@ export const DEFAULTS_V1: PersonaDefaults = {
   notes: DEFAULT_NOTES,
 };
 
-export const DEFAULT_SNAPSHOT_BY_VERSION: Record<SchemaVersion, PersonaDefaults> = {
+export const DEFAULT_SNAPSHOT_BY_VERSION: Record<
+  SchemaVersion,
+  PersonaDefaults
+> = {
   v1: DEFAULTS_V1,
 };
 
