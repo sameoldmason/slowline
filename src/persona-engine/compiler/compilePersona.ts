@@ -16,6 +16,7 @@ import {
   assertRegistryMatches,
 } from "../utils/assert";
 import { validatePersonaConfig } from "../schema/validate";
+import { CANONICAL_PINNED_LINES } from "../registry/formattingContract";
 
 export function compilePersona(input: PersonaConfig): {
   resolved: ResolvedPersonaConfig;
@@ -31,7 +32,20 @@ export function compilePersona(input: PersonaConfig): {
 
   const systemPrompt = assembleSystemPrompt(modules);
   assertNoPlaceholders(systemPrompt, "systemPrompt");
-  assertPinnedLines(systemPrompt);
+  assertPinnedLines(
+    systemPrompt,
+    CANONICAL_PINNED_LINES.map((line) =>
+      line.replace(/{{\s*([^}]+)\s*}}/g, (_, key: string) => {
+        const ctx: Record<string, string> = {
+          tone: resolved.tone,
+          pacing: resolved.pacing,
+          tone_description: derived.toneDescription ?? resolved.tone,
+          pacing_description: derived.pacingDescription ?? resolved.pacing,
+        };
+        return ctx[key] ?? "";
+      })
+    )
+  );
 
   const promptHash = computePromptHash({
     systemPrompt,
