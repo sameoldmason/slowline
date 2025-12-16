@@ -13,6 +13,6 @@ Rules:
 - No tools in test chat
 
 Task:
-Implement engine-impl-phase-2, Phase 2 only.
+Implement engine-impl-phase-3-router, Phase 3 only.
 
 If anything is unclear, ask before coding.
