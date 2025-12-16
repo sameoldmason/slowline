@@ -1,9 +1,8 @@
-export type SchemaVersion = 'v1';
-
-export const SUPPORTED_SCHEMA_VERSIONS: SchemaVersion[] = ['v1'];
-
-export const DEFAULT_SCHEMA_VERSION: SchemaVersion = 'v1';
-
-export function isSupportedSchemaVersion(version: string): version is SchemaVersion {
-  return SUPPORTED_SCHEMA_VERSIONS.includes(version as SchemaVersion);
-}
+export {
+  DEFAULT_SCHEMA_VERSION,
+  MIN_SCHEMA_VERSION,
+  MAX_SCHEMA_VERSION,
+  SchemaVersion,
+  SUPPORTED_SCHEMA_VERSIONS,
+} from '../registry/schemaVersions';
+export { isSupportedSchemaVersion } from './validate';
