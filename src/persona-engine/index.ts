@@ -21,6 +21,8 @@ export * from "./router/errors";
 export * from "./router/hash";
 export * from "./router/route";
 
+export * from "./exporters";
+
 export * from "./utils/assert";
 export * from "./utils/errors";
 export * from "./utils/normalize";

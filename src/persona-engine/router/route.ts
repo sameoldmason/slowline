@@ -93,13 +93,15 @@ function buildRoutedPlan(
   const { resolvedConfigSnapshot } = context.persona;
   const applyPressure = intent !== "vent_reflection";
   const allowAdvice =
-    intent !== "vent_reflection" || context.runtime.explicitAdviceRequested === true;
+    intent !== "vent_reflection" ||
+    context.runtime.explicitAdviceRequested === true;
 
   return {
     kind: "routed",
     intent,
     applyPressure,
     allowAdvice,
+    allowQuestions: intent === "stuck" ? permissionRequiredForQuestions : true,
     includeNextStep: intent === "stuck",
     useFormalMode: context.runtime.requestFormalMode === true,
     permissionRequiredForQuestions: permissionRequiredForQuestions,
@@ -124,10 +126,7 @@ function assertRuntimeInput(runtime: RouteRuntime): void {
 
 export function routeResponse(context: RouteContext): PlannedResponse {
   if (!context || !context.persona) {
-    throw new RouterError(
-      "INVALID_INPUT",
-      "persona is required for routing"
-    );
+    throw new RouterError("INVALID_INPUT", "persona is required for routing");
   }
 
   assertRuntimeInput(context.runtime);

@@ -1,11 +1,10 @@
-import { CANONICAL_PINNED_LINES } from "../registry/formattingContract";
 import { MODULE_REGISTRY } from "../registry/moduleRegistry";
 import type { CompiledModule } from "../schema/types";
 import { CompileError } from "./errors";
 
 export function assertPinnedLines(
   prompt: string,
-  pinnedLines = CANONICAL_PINNED_LINES
+  pinnedLines: readonly string[]
 ): void {
   const missing = pinnedLines.filter((line) => !prompt.includes(line));
   if (missing.length > 0) {
