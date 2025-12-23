@@ -23,6 +23,7 @@ export function createSession(params: {
     testChatModule: params.testChatModule,
     promptHash: params.promptHash,
     createdAt,
+    messages: [],
     usage: {
       lastMessageAt: undefined,
       totalMessages: 0,

@@ -11,7 +11,6 @@ export interface StartRequestBody {
 export interface StartResponseBody {
   sessionId: string;
   promptHash: string;
-  systemPrompt: string;
   tokenizerModel: string;
   tokenEstimate: number;
 }
@@ -34,6 +33,8 @@ export interface LimitsConfig {
   cooldownMs: number;
   dailyMessageCap: number;
   tokenCap: number;
+  maxMessageChars: number;
+  maxHistoryMessages: number;
 }
 
 export interface SessionUsage {
@@ -53,6 +54,7 @@ export interface TestChatSession {
   testChatModule: CompiledModule;
   promptHash: string;
   createdAt: number;
+  messages: Array<{ role: "user" | "assistant"; content: string; at: number }>;
   usage: SessionUsage;
 }
 

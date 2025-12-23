@@ -39,11 +39,21 @@ interface OpenAIChatResponse {
   };
 }
 
+type ChatMessage = {
+  role: "system" | "user" | "assistant";
+  content: string;
+};
+
 export async function runTestChatCompletion(
   config: LlmConfig,
   systemPrompt: string,
-  userMessage: string
+  history: Array<{ role: "user" | "assistant"; content: string }>
 ): Promise<{ content: string; usage: LlmUsage }> {
+  const messages: ChatMessage[] = [{ role: "system", content: systemPrompt }];
+  for (const message of history) {
+    messages.push({ role: message.role, content: message.content });
+  }
+
   const response = await fetch(config.endpoint, {
     method: "POST",
     headers: {
@@ -52,10 +62,9 @@ export async function runTestChatCompletion(
     },
     body: JSON.stringify({
       model: config.model,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userMessage },
-      ],
+      messages,
+      tools: [],
+      tool_choice: "none",
     }),
   });
 

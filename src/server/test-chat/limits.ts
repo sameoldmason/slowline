@@ -6,9 +6,11 @@ const REQUIRED_LIMIT_VARS = {
   cooldownMs: "TEST_CHAT_COOLDOWN_MS",
   dailyMessageCap: "TEST_CHAT_DAILY_MESSAGE_CAP",
   tokenCap: "TEST_CHAT_TOKEN_CAP",
+  maxMessageChars: "TEST_CHAT_MAX_MESSAGE_CHARS",
+  maxHistoryMessages: "TEST_CHAT_MAX_HISTORY_MESSAGES",
 } as const;
 
-function parseNumericEnv(name: string, env: NodeJS.ProcessEnv): number {
+function parsePositiveIntEnv(name: string, env: NodeJS.ProcessEnv): number {
   const raw = env[name];
 
   if (!raw) {
@@ -17,8 +19,8 @@ function parseNumericEnv(name: string, env: NodeJS.ProcessEnv): number {
 
   const value = Number(raw);
 
-  if (!Number.isFinite(value)) {
-    throw new Error(`Env var ${name} must be a finite number`);
+  if (!Number.isInteger(value) || value < 1) {
+    throw new Error(`Env var ${name} must be an integer >= 1`);
   }
 
   return value;
@@ -26,14 +28,28 @@ function parseNumericEnv(name: string, env: NodeJS.ProcessEnv): number {
 
 export function loadLimitsConfig(env: NodeJS.ProcessEnv = process.env): LimitsConfig {
   return {
-    rateLimitWindowMs: parseNumericEnv(REQUIRED_LIMIT_VARS.rateLimitWindowMs, env),
-    rateLimitMaxRequests: parseNumericEnv(
+    rateLimitWindowMs: parsePositiveIntEnv(
+      REQUIRED_LIMIT_VARS.rateLimitWindowMs,
+      env
+    ),
+    rateLimitMaxRequests: parsePositiveIntEnv(
       REQUIRED_LIMIT_VARS.rateLimitMaxRequests,
       env
     ),
-    cooldownMs: parseNumericEnv(REQUIRED_LIMIT_VARS.cooldownMs, env),
-    dailyMessageCap: parseNumericEnv(REQUIRED_LIMIT_VARS.dailyMessageCap, env),
-    tokenCap: parseNumericEnv(REQUIRED_LIMIT_VARS.tokenCap, env),
+    cooldownMs: parsePositiveIntEnv(REQUIRED_LIMIT_VARS.cooldownMs, env),
+    dailyMessageCap: parsePositiveIntEnv(
+      REQUIRED_LIMIT_VARS.dailyMessageCap,
+      env
+    ),
+    tokenCap: parsePositiveIntEnv(REQUIRED_LIMIT_VARS.tokenCap, env),
+    maxMessageChars: parsePositiveIntEnv(
+      REQUIRED_LIMIT_VARS.maxMessageChars,
+      env
+    ),
+    maxHistoryMessages: parsePositiveIntEnv(
+      REQUIRED_LIMIT_VARS.maxHistoryMessages,
+      env
+    ),
   };
 }
 
