@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 .tmp-tests/
+.tmp-tests/
+
 
 
 # Editor directories and files
