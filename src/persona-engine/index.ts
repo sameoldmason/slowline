@@ -27,3 +27,5 @@ export * from "./utils/assert";
 export * from "./utils/errors";
 export * from "./utils/normalize";
 export * from "./utils/formatting";
+
+export * from "./test-chat";
