@@ -1,1 +1,0 @@
-export { isSupportedSchemaVersion } from "./validate";
