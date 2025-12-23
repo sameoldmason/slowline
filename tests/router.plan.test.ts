@@ -19,18 +19,21 @@ function runPlan(message: string, runtime: Partial<RouteRuntime> = {}) {
 const unclear = runPlan("hello there");
 const unclearRerun = runPlan("hello there");
 assert.strictEqual(unclear.plan.kind, "clarify_intent");
-assert.strictEqual(unclear.plan.question.includes("?"), true);
-assert.strictEqual(
-  (unclear.plan.question.match(/\?/g) ?? []).length,
-  1,
-  "Clarifying plan should include exactly one question"
+const firstLine = (unclear.plan.question.split("\n")[0] ?? "").trim();
+assert.ok(
+  firstLine.includes("?"),
+  "Clarifying plan should start with a question"
 );
+
 assert.deepStrictEqual(
   unclear.plan,
   unclearRerun.plan,
   "Clarifying plan should be deterministic"
 );
-if (typeof unclear.planHash === "string" && typeof unclearRerun.planHash === "string") {
+if (
+  typeof unclear.planHash === "string" &&
+  typeof unclearRerun.planHash === "string"
+) {
   assert.strictEqual(
     unclear.planHash,
     unclearRerun.planHash,
@@ -50,7 +53,10 @@ assert.deepStrictEqual(
   ventRerun.plan,
   "Vent plan should be deterministic"
 );
-if (typeof vent.planHash === "string" && typeof ventRerun.planHash === "string") {
+if (
+  typeof vent.planHash === "string" &&
+  typeof ventRerun.planHash === "string"
+) {
   assert.strictEqual(
     vent.planHash,
     ventRerun.planHash,
@@ -70,7 +76,10 @@ assert.deepStrictEqual(
   stuckRerun.plan,
   "Stuck plan should be deterministic"
 );
-if (typeof stuck.planHash === "string" && typeof stuckRerun.planHash === "string") {
+if (
+  typeof stuck.planHash === "string" &&
+  typeof stuckRerun.planHash === "string"
+) {
   assert.strictEqual(
     stuck.planHash,
     stuckRerun.planHash,

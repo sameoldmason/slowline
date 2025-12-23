@@ -52,11 +52,15 @@ function readCanonicalPromptTemplate(): string {
   return match[1];
 }
 
+function normalizeNewlines(s: string): string {
+  return s.replace(/\r\n/g, "\n");
+}
+
 const { compiled: recompilation } = compilePersona(GOLDEN_RESOLVED_CONFIG);
 
 assert.strictEqual(
-  readCanonicalPromptTemplate(),
-  recompilation.systemPrompt,
+  normalizeNewlines(readCanonicalPromptTemplate()),
+  normalizeNewlines(recompilation.systemPrompt),
   "CANONICAL_PROMPT_TEMPLATE.md must match the compiled system prompt"
 );
 
